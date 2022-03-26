@@ -13,9 +13,11 @@ class Math:
 browser = webdriver.Chrome('/Users/bronsinb/Downloads/chromedriver')
 class Test(unittest.TestCase):
 
+    @pytest.mark.add
     def test_add(self):
         assert Math.add(1, 2) == 3
 
+    @pytest.mark.costco
     def test_costco(self):
         print("Step 1: Set Up Browser")
         options = webdriver.ChromeOptions()
