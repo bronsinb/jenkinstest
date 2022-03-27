@@ -1,6 +1,7 @@
+import json
 import pytest
 import unittest
-import time
+import requests
 from selenium import webdriver
 
 
@@ -17,6 +18,11 @@ class Test(unittest.TestCase):
     def test_add(self):
         assert Math.add(1, 2) == 3
 
+    @pytest.mark.zero
+    def test_divid_by_zero(self):
+        with pytest.raises(ZeroDivisionError):
+            1 / 0
+
     @pytest.mark.costco
     def test_costco(self):
         print("Step 1: Set Up Browser")
@@ -32,3 +38,15 @@ class Test(unittest.TestCase):
 
         print("Step 4: Finalize")
         driver.close()
+
+    @pytest.mark.requests
+    def test_get_spiderman_wikipedia(self):
+        session = requests.Session()
+        url = "https://en.wikipedia.org/wiki/Spider-Man:_Homecoming"
+
+        print("Step 1: Get Wikipedia page")
+        spiderman = session.get(url)
+        assert spiderman.status_code == 200, "Wikipedia page did not load properly"
+        
+        print("Step 2: Verify if correct page loaded")
+        assert "Spider-Man: Homecoming" in str(spiderman.content), "Wrong page"
